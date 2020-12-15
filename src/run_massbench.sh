@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CODEPATH="/home/volkan/Dropbox/7352/Project/Code"
-GEM5PATH="/home/volkan/gem5"
+CODEPATH="" # enter your path here
+GEM5PATH="" # enter your gem5 path here
 SHAPATH="$CODEPATH/SHA256"
 SIPPATH="$CODEPATH/SipHash24"
 
@@ -48,20 +48,20 @@ for length in {100..10000..100}; do
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SHAPATH/asm_sha256test --options="$length $SCRIPTOPTS"
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 GEM5OPTS="${GEM5OPTS} --cacheline_size=256"
 
@@ -70,20 +70,20 @@ for length in {100..10000..100}; do
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SHAPATH/asm_sha256test --options="$length $SCRIPTOPTS"
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 GEM5OPTS="${GEM5OPTS} --l1i-hwp-type=TaggedPrefetcher --l1d-hwp-type=TaggedPrefetcher"
 
@@ -92,20 +92,20 @@ for length in {100..10000..100}; do
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SHAPATH/asm_sha256test --options="$length $SCRIPTOPTS"
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 GEM5OPTS="${GEM5OPTS} --bp-type=LTAGE"
 
@@ -114,10 +114,10 @@ for length in {100..10000..100}; do
     python3 getter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/output.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/memoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/cycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/output.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/memoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/cycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SHAPATH/asm_sha256test --options="$length $SCRIPTOPTS"
@@ -136,20 +136,20 @@ for length in {100..10000..100}; do
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SIPPATH/asm_siphash24test --options="$length $SIPSCRIPTOPTS"
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 GEM5OPTS="${GEM5OPTS} --cacheline_size=256"
 
@@ -158,20 +158,20 @@ for length in {100..10000..100}; do
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SIPPATH/asm_siphash24test --options="$length $SIPSCRIPTOPTS"
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 GEM5OPTS="${GEM5OPTS} --l1i-hwp-type=TaggedPrefetcher --l1d-hwp-type=TaggedPrefetcher"
 
@@ -180,20 +180,20 @@ for length in {100..10000..100}; do
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SIPPATH/asm_siphash24test --options="$length $SIPSCRIPTOPTS"
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 GEM5OPTS="${GEM5OPTS} --bp-type=LTAGE"
 
@@ -202,10 +202,10 @@ for length in {100..10000..100}; do
     python3 sipgetter.py;
 done
 
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipmemoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcacheoutput.txt;
-printf "\n" >> /home/volkan/Dropbox/7352/Project/Code/benchmark_scripts/sipcycleoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipmemoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcacheoutput.txt;
+printf "\n" >> $CODEPATH/benchmark_scripts/sipcycleoutput.txt;
 
 for length in {100..10000..100}; do
     $GEM5PATH/build/RISCV/gem5.opt $GEM5PATH/configs/example/se.py $GEM5OPTS -c $SIPPATH/asm_siphash24test --options="$length $SIPSCRIPTOPTS"
