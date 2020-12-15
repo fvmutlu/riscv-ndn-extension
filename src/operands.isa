@@ -1,0 +1,159 @@
+// -*- mode:c++ -*-
+
+// Copyright (c) 2015 RISC-V Foundation
+// Copyright (c) 2016 The University of Virginia
+// Copyright (c) 2020 Barkhausen Institut
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met: redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer;
+// redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution;
+// neither the name of the copyright holders nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+def operand_types {{
+    'sb' : 'int8_t',
+    'ub' : 'uint8_t',
+    'sh' : 'int16_t',
+    'uh' : 'uint16_t',
+    'sw' : 'int32_t',
+    'uw' : 'uint32_t',
+    'sd' : 'int64_t',
+    'ud' : 'uint64_t',
+    'sf' : 'float',
+    'df' : 'double'
+}};
+
+def operands {{
+#General Purpose Integer Reg Operands
+    'Rd': ('IntReg', 'ud', 'RD', 'IsInteger', 1),
+    'Rs1': ('IntReg', 'ud', 'RS1', 'IsInteger', 2),
+    'Rs2': ('IntReg', 'ud', 'RS2', 'IsInteger', 3),
+    'Rt': ('IntReg', 'ud', 'AMOTempReg', 'IsInteger', 4),
+    'Rc1': ('IntReg', 'ud', 'RC1', 'IsInteger', 2),
+    'Rc2': ('IntReg', 'ud', 'RC2', 'IsInteger', 3),
+    'Rp1': ('IntReg', 'ud', 'RP1 + 8', 'IsInteger', 2),
+    'Rp2': ('IntReg', 'ud', 'RP2 + 8', 'IsInteger', 3),
+    'ra': ('IntReg', 'ud', 'ReturnAddrReg', 'IsInteger', 1),
+    'sp': ('IntReg', 'ud', 'StackPointerReg', 'IsInteger', 2),
+
+    'a0': ('IntReg', 'ud', '10', 'IsInteger', 1),
+
+    'Fd': ('FloatReg', 'df', 'FD', 'IsFloating', 1),
+    'Fd_bits': ('FloatReg', 'ud', 'FD', 'IsFloating', 1),
+    'Fs1': ('FloatReg', 'df', 'FS1', 'IsFloating', 2),
+    'Fs1_bits': ('FloatReg', 'ud', 'FS1', 'IsFloating', 2),
+    'Fs2': ('FloatReg', 'df', 'FS2', 'IsFloating', 3),
+    'Fs2_bits': ('FloatReg', 'ud', 'FS2', 'IsFloating', 3),
+    'Fs3': ('FloatReg', 'df', 'FS3', 'IsFloating', 4),
+    'Fs3_bits': ('FloatReg', 'ud', 'FS3', 'IsFloating', 4),
+    'Fc1': ('FloatReg', 'df', 'FC1', 'IsFloating', 1),
+    'Fc1_bits': ('FloatReg', 'ud', 'FC1', 'IsFloating', 1),
+    'Fc2': ('FloatReg', 'df', 'FC2', 'IsFloatReg', 2),
+    'Fc2_bits': ('FloatReg', 'ud', 'FC2', 'IsFloating', 2),
+    'Fp2': ('FloatReg', 'df', 'FP2 + 8', 'IsFloating', 2),
+    'Fp2_bits': ('FloatReg', 'ud', 'FP2 + 8', 'IsFloating', 2),
+
+#Memory Operand
+    'Mem': ('Mem', 'ud', None, ('IsMemRef', 'IsLoad', 'IsStore'), 5),
+
+#Program Counter Operands
+    'PC': ('PCState', 'ud', 'pc', (None, None, 'IsControl'), 7),
+    'NPC': ('PCState', 'ud', 'npc', (None, None, 'IsControl'), 8),
+
+#SipHash Operands
+    'v0': ('IntReg', 'ud', 'SiphReg', 'IsInteger', 9),
+    'v1': ('IntReg', 'ud', 'SiphReg + 1', 'IsInteger', 9),
+    'v2': ('IntReg', 'ud', 'SiphReg + 2', 'IsInteger', 9),
+    'v3': ('IntReg', 'ud', 'SiphReg + 3', 'IsInteger', 9),
+#SHA256 Operands
+    'W0': ('IntReg', 'uw', 'ShaWordReg', 'IsInteger', 9),
+    'W1': ('IntReg', 'uw', 'ShaWordReg + 1', 'IsInteger', 9),
+    'W2': ('IntReg', 'uw', 'ShaWordReg + 2', 'IsInteger', 9),
+    'W3': ('IntReg', 'uw', 'ShaWordReg + 3', 'IsInteger', 9),
+    'W4': ('IntReg', 'uw', 'ShaWordReg + 4', 'IsInteger', 9),
+    'W5': ('IntReg', 'uw', 'ShaWordReg + 5', 'IsInteger', 9),
+    'W6': ('IntReg', 'uw', 'ShaWordReg + 6', 'IsInteger', 9),
+    'W7': ('IntReg', 'uw', 'ShaWordReg + 7', 'IsInteger', 9),
+    'W8': ('IntReg', 'uw', 'ShaWordReg + 8', 'IsInteger', 9),
+    'W9': ('IntReg', 'uw', 'ShaWordReg + 9', 'IsInteger', 9),
+    'W10': ('IntReg', 'uw', 'ShaWordReg + 10', 'IsInteger', 9),
+    'W11': ('IntReg', 'uw', 'ShaWordReg + 11', 'IsInteger', 9),
+    'W12': ('IntReg', 'uw', 'ShaWordReg + 12', 'IsInteger', 9),
+    'W13': ('IntReg', 'uw', 'ShaWordReg + 13', 'IsInteger', 9),
+    'W14': ('IntReg', 'uw', 'ShaWordReg + 14', 'IsInteger', 9),
+    'W15': ('IntReg', 'uw', 'ShaWordReg + 15', 'IsInteger', 9),
+    'W16': ('IntReg', 'uw', 'ShaWordReg + 16', 'IsInteger', 9),
+    'W17': ('IntReg', 'uw', 'ShaWordReg + 17', 'IsInteger', 9),
+    'W18': ('IntReg', 'uw', 'ShaWordReg + 18', 'IsInteger', 9),
+    'W19': ('IntReg', 'uw', 'ShaWordReg + 19', 'IsInteger', 9),
+    'W20': ('IntReg', 'uw', 'ShaWordReg + 20', 'IsInteger', 9),
+    'W21': ('IntReg', 'uw', 'ShaWordReg + 21', 'IsInteger', 9),
+    'W22': ('IntReg', 'uw', 'ShaWordReg + 22', 'IsInteger', 9),
+    'W23': ('IntReg', 'uw', 'ShaWordReg + 23', 'IsInteger', 9),
+    'W24': ('IntReg', 'uw', 'ShaWordReg + 24', 'IsInteger', 9),
+    'W25': ('IntReg', 'uw', 'ShaWordReg + 25', 'IsInteger', 9),
+    'W26': ('IntReg', 'uw', 'ShaWordReg + 26', 'IsInteger', 9),
+    'W27': ('IntReg', 'uw', 'ShaWordReg + 27', 'IsInteger', 9),
+    'W28': ('IntReg', 'uw', 'ShaWordReg + 28', 'IsInteger', 9),
+    'W29': ('IntReg', 'uw', 'ShaWordReg + 29', 'IsInteger', 9),
+    'W30': ('IntReg', 'uw', 'ShaWordReg + 30', 'IsInteger', 9),
+    'W31': ('IntReg', 'uw', 'ShaWordReg + 31', 'IsInteger', 9),
+    'W32': ('IntReg', 'uw', 'ShaWordReg + 32', 'IsInteger', 9),
+    'W33': ('IntReg', 'uw', 'ShaWordReg + 33', 'IsInteger', 9),
+    'W34': ('IntReg', 'uw', 'ShaWordReg + 34', 'IsInteger', 9),
+    'W35': ('IntReg', 'uw', 'ShaWordReg + 35', 'IsInteger', 9),
+    'W36': ('IntReg', 'uw', 'ShaWordReg + 36', 'IsInteger', 9),
+    'W37': ('IntReg', 'uw', 'ShaWordReg + 37', 'IsInteger', 9),
+    'W38': ('IntReg', 'uw', 'ShaWordReg + 38', 'IsInteger', 9),
+    'W39': ('IntReg', 'uw', 'ShaWordReg + 39', 'IsInteger', 9),
+    'W40': ('IntReg', 'uw', 'ShaWordReg + 40', 'IsInteger', 9),
+    'W41': ('IntReg', 'uw', 'ShaWordReg + 41', 'IsInteger', 9),
+    'W42': ('IntReg', 'uw', 'ShaWordReg + 42', 'IsInteger', 9),
+    'W43': ('IntReg', 'uw', 'ShaWordReg + 43', 'IsInteger', 9),
+    'W44': ('IntReg', 'uw', 'ShaWordReg + 44', 'IsInteger', 9),
+    'W45': ('IntReg', 'uw', 'ShaWordReg + 45', 'IsInteger', 9),
+    'W46': ('IntReg', 'uw', 'ShaWordReg + 46', 'IsInteger', 9),
+    'W47': ('IntReg', 'uw', 'ShaWordReg + 47', 'IsInteger', 9),
+    'W48': ('IntReg', 'uw', 'ShaWordReg + 48', 'IsInteger', 9),
+    'W49': ('IntReg', 'uw', 'ShaWordReg + 49', 'IsInteger', 9),
+    'W50': ('IntReg', 'uw', 'ShaWordReg + 50', 'IsInteger', 9),
+    'W51': ('IntReg', 'uw', 'ShaWordReg + 51', 'IsInteger', 9),
+    'W52': ('IntReg', 'uw', 'ShaWordReg + 52', 'IsInteger', 9),
+    'W53': ('IntReg', 'uw', 'ShaWordReg + 53', 'IsInteger', 9),
+    'W54': ('IntReg', 'uw', 'ShaWordReg + 54', 'IsInteger', 9),
+    'W55': ('IntReg', 'uw', 'ShaWordReg + 55', 'IsInteger', 9),
+    'W56': ('IntReg', 'uw', 'ShaWordReg + 56', 'IsInteger', 9),
+    'W57': ('IntReg', 'uw', 'ShaWordReg + 57', 'IsInteger', 9),
+    'W58': ('IntReg', 'uw', 'ShaWordReg + 58', 'IsInteger', 9),
+    'W59': ('IntReg', 'uw', 'ShaWordReg + 59', 'IsInteger', 9),
+    'W60': ('IntReg', 'uw', 'ShaWordReg + 60', 'IsInteger', 9),
+    'W61': ('IntReg', 'uw', 'ShaWordReg + 61', 'IsInteger', 9),
+    'W62': ('IntReg', 'uw', 'ShaWordReg + 62', 'IsInteger', 9),
+    'W63': ('IntReg', 'uw', 'ShaWordReg + 63', 'IsInteger', 9),
+    'H0': ('IntReg', 'uw', 'ShaHashReg', 'IsInteger', 9),
+    'H1': ('IntReg', 'uw', 'ShaHashReg + 1', 'IsInteger', 9),
+    'H2': ('IntReg', 'uw', 'ShaHashReg + 2', 'IsInteger', 9),
+    'H3': ('IntReg', 'uw', 'ShaHashReg + 3', 'IsInteger', 9),
+    'H4': ('IntReg', 'uw', 'ShaHashReg + 4', 'IsInteger', 9),
+    'H5': ('IntReg', 'uw', 'ShaHashReg + 5', 'IsInteger', 9),
+    'H6': ('IntReg', 'uw', 'ShaHashReg + 6', 'IsInteger', 9),
+    'H7': ('IntReg', 'uw', 'ShaHashReg + 7', 'IsInteger', 9),
+}};
